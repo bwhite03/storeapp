@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+table,
+th,
+td {
+  border: 1px solid;
+}
+
+table {
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+}
+
+body {
+  /* Created with https://www.css-gradient.com */
+  background: #1d44b5;
+  background: -webkit-radial-gradient(top left, #1d44b5, #7fa764);
+  background: -moz-radial-gradient(top left, #1d44b5, #7fa764);
+  background: radial-gradient(to bottom right, #1d44b5, #7fa764);
+  color: white;
+}

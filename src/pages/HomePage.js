@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { fetchStores } from "../api/Store";
 import StoreTable from "../components/StoreTable";
+import AddStore from "../components/AddStore";
 import { useDispatch, useSelector } from "react-redux";
-import { storeReducer } from "../store/reducers/storeReducer";
 import * as actions from "../store/actions/storeActions";
 
 function HomePage() {
@@ -13,16 +13,16 @@ function HomePage() {
     fetchStores().then((res) => {
       const j = res.data;
       if (j.error === 0) {
-        dispatch({ type: actions.SET_STORE, stores: j.data });
+        dispatch({ type: actions.SET_STORE, stores: j.stores });
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
-      {state &&
-        state.map((store) => <div key={store.id}>{store.storeName}</div>)}
-      <p>test</p>
+      <StoreTable stores={state.filteredStores} />
+      <AddStore />
     </div>
   );
 }

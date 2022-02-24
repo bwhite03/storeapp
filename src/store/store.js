@@ -1,9 +1,10 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import combineReducer from "./reducers/combineReducer";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-export const store = createStore(
+const store = createStore(
   combineReducer,
-  compose(
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeWithDevTools(applyMiddleware())
 );
+
+export default store;

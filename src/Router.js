@@ -7,10 +7,9 @@ function Router() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
-      <h2>test</h2>
     </div>
   );
 }
