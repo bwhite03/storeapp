@@ -5,6 +5,7 @@ const storeDefaultState = {
   filteredStores: [],
   sortColumn: "",
   sortDirection: "asc",
+  refresh: false,
 };
 
 const storeReducer = (state = storeDefaultState, action) => {
@@ -18,6 +19,8 @@ const storeReducer = (state = storeDefaultState, action) => {
       return { ...state, sortColumn: action.sortColumn };
     case actions.SET_SORT_DIRECTION:
       return { ...state, sortDirection: action.sortDirection };
+    case actions.REFRESH:
+      return { ...state, refresh: !state.refresh };
     default:
       return state;
   }

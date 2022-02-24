@@ -16,7 +16,8 @@ const newStoreReducer = (state = storeDefaultState, action) => {
     case actions.UPDATE_FORM_STATE:
       const { name, value } = action;
       return { ...state, [name]: value };
-
+    case actions.REFRESH:
+      return { storeDefaultState };
     default:
       return state;
   }

@@ -10,14 +10,18 @@ function HomePage() {
   const state = useSelector((app) => app.storeReducer);
 
   useEffect(() => {
-    fetchStores().then((res) => {
-      const j = res.data;
-      if (j.error === 0) {
-        dispatch({ type: actions.SET_STORE, stores: j.stores });
-      }
-    });
+    fetchStores()
+      .then((res) => {
+        const j = res.data;
+        if (j.error === 0) {
+          dispatch({ type: actions.SET_STORE, stores: j.stores });
+        } else {
+          console.log(j.msg);
+        }
+      })
+      .catch((error) => console.log(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [state.refresh]);
 
   return (
     <div>

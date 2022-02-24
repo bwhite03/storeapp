@@ -2,6 +2,8 @@ import React from "react";
 import * as actions from "../store/actions/storeActions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { headers } from "../utils";
+import { storeDelete } from "../api/Store";
 
 function StoreTable({ stores }) {
   const dispatch = useDispatch();
@@ -14,8 +16,18 @@ function StoreTable({ stores }) {
   }, [state.sortColumn, state.sortDirection]);
 
   const compare = (a, b) => {
-    const field1 = a[state.sortColumn];
-    const field2 = b[state.sortColumn];
+    let type = "string";
+    let field1 = a[state.sortColumn];
+    let field2 = b[state.sortColumn];
+    const dataType = headers.find((h) => h.columnName === state.sortColumn);
+    if (dataType) {
+      type = dataType.type;
+    }
+
+    if (type === "int") {
+      field1 = Number(a[state.sortColumn]);
+      field2 = Number(b[state.sortColumn]);
+    }
 
     if (field1 > field2) {
       if (state.sortDirection === "asc") {
@@ -41,35 +53,55 @@ function StoreTable({ stores }) {
     }
   };
 
+  const handleDelete = (id) => {
+    debugger;
+    storeDelete(id)
+      .then((res) => {
+        const j = res.data;
+        if (j.error === 0) {
+          dispatch({ type: actions.REFRESH });
+        } else {
+          console.log(j.msg);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <React.Fragment>
       {stores && stores.length > 0 ? (
         <table>
-          <tr>
-            {Object.keys(stores[0]).map((store) => (
-              <th onClick={() => handleSort(store)}>{store}</th>
-            ))}
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-          {stores.map((store) => (
+          <thead>
             <tr>
-              <td>{store.id}</td>
-              <td>{store.storeNumber}</td>
-              <td>{store.storeName}</td>
-              <td>{store.termCount}</td>
-              <td>{store.version}</td>
-              <td>{store.state}</td>
-              <td>{store.taxRate}</td>
-              <td>{store.groupId}</td>
-              <td>
-                <button>Edit</button>
-              </td>
-              <td>
-                <button>Delete</button>
-              </td>
+              {Object.keys(stores[0]).map((store, i) => (
+                <th key={i} onClick={() => handleSort(store)}>
+                  {store}
+                </th>
+              ))}
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {stores.map((store) => (
+              <tr key={store.id}>
+                <td>{store.id}</td>
+                <td>{store.storeNumber}</td>
+                <td>{store.storeName}</td>
+                <td>{store.termCount}</td>
+                <td>{store.version}</td>
+                <td>{store.state}</td>
+                <td>{store.taxRate}</td>
+                <td>{store.groupId}</td>
+                <td>
+                  <button>Edit</button>
+                </td>
+                <td>
+                  <button onClick={() => handleDelete(store.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       ) : (
         <h1>No Stores</h1>
