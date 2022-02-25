@@ -3,7 +3,7 @@ import * as actions from "../store/actions/storeActions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { headers } from "../utils";
-import { storeDelete } from "../api/Store";
+import { storeDelete, test } from "../api/Store";
 
 function StoreTable({ stores }) {
   const dispatch = useDispatch();
@@ -54,7 +54,6 @@ function StoreTable({ stores }) {
   };
 
   const handleDelete = (id) => {
-    debugger;
     storeDelete(id)
       .then((res) => {
         const j = res.data;
@@ -64,7 +63,10 @@ function StoreTable({ stores }) {
           console.log(j.msg);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        debugger;
+        console.log(error);
+      });
   };
 
   return (

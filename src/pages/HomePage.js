@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchStores } from "../api/Store";
 import StoreTable from "../components/StoreTable";
 import AddStore from "../components/AddStore";
+import User from "../components/User";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions/storeActions";
 
@@ -27,6 +28,7 @@ function HomePage() {
     <div>
       <StoreTable stores={state.filteredStores} />
       <AddStore />
+      <User />
     </div>
   );
 }

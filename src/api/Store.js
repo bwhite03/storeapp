@@ -46,7 +46,7 @@ export async function addStore(
 
 export async function storeDelete(id) {
   const json = await axios({
-    method: "DELETE",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
@@ -55,6 +55,17 @@ export async function storeDelete(id) {
       id,
       apikey,
     },
+  });
+  return json;
+}
+
+export async function test() {
+  const json = await axios({
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    url: url + "stores/test",
   });
   return json;
 }
