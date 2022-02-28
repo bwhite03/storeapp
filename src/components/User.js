@@ -31,7 +31,9 @@ function User() {
       <form onSubmit={handleSubmit}>
         <label>Search User</label>
         <input type="text" value={userValue} onChange={handleChange} />
-        <button type="submit">Submit</button>
+        <button className="submit-btn" type="submit">
+          Submit
+        </button>
       </form>
       {user.length > 0 ? (
         <table>

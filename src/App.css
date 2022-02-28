@@ -37,15 +37,26 @@
   }
 }
 
-table,
-th,
-td {
-  border: 1px solid;
+table {
+  color: #333;
+  background: white;
+  border: 1px solid grey;
+  border-collapse: collapse;
+  margin: 20px auto;
 }
 
-table {
-  margin: 10px auto 0 auto;
-  margin-top: 10px;
+table th {
+  cursor: pointer;
+}
+
+td,
+th {
+  padding: 8px;
+  border: 1px solid #333;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
 label {
@@ -54,9 +65,69 @@ label {
 
 body {
   /* Created with https://www.css-gradient.com */
-  background: #1d44b5;
-  background: -webkit-radial-gradient(top left, #1d44b5, #7fa764);
-  background: -moz-radial-gradient(top left, #1d44b5, #7fa764);
-  background: radial-gradient(to bottom right, #1d44b5, #7fa764);
+  background: linear-gradient(
+    90deg,
+    #332d45,
+    #302b48,
+    #2d284b,
+    #29264e,
+    #242452,
+    #1e2255,
+    #152158,
+    #051f5c
+  );
   color: white;
+}
+
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 16px 50px;
+  background: #252323;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav li {
+  display: inline;
+  padding: 5px;
+}
+
+.nav li a,
+.nav ul a {
+  text-decoration: none;
+  color: #f5f1ed;
+}
+
+.store-filter {
+  width: 40%;
+  margin: 10px auto;
+}
+
+form {
+  width: 40%;
+  margin: 0 auto;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

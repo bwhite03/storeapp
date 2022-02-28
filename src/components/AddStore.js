@@ -22,7 +22,6 @@ function AddStore() {
   };
 
   const handleSubmit = (e) => {
-    console.log("Test");
     e.preventDefault();
     addStore(
       state.storeNumber,
@@ -38,7 +37,8 @@ function AddStore() {
         if (j.error === 0) {
           dispatch({ type: actions.REFRESH });
         } else {
-          console.log(j.message);
+          dispatch({ type: actions.REFRESH });
+          console.log(j.msg);
         }
       })
       .catch((err) => console.log(err));
@@ -53,7 +53,7 @@ function AddStore() {
         value={state.storeNumber}
         onChange={handleChange}
       />
-      <label>Store Name</label>
+      {/* <label>Store Name</label>
       <input
         name="storeName"
         type="text"
@@ -75,12 +75,14 @@ function AddStore() {
         onChange={handleChange}
       />
       <label>State</label>
-      <input
-        name="state"
-        type="text"
-        value={state.state}
-        onChange={handleChange}
-      />
+      <select name="state" value={state.state} onChange={handleChange}>
+        <option value="" hidden disabled></option>
+        {appState.states.map((store, i) => (
+          <option key={i} value={store.abr}>
+            {store.name}
+          </option>
+        ))}
+      </select>
       <label>Tax Rate</label>
       <input
         name="taxRate"
@@ -94,8 +96,10 @@ function AddStore() {
         type="number"
         value={state.groupId}
         onChange={handleChange}
-      />
-      <button type="submit">Submit</button>
+      /> */}
+      <button className="submit-btn" type="submit">
+        Submit
+      </button>
     </form>
   );
 }

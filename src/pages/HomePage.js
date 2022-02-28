@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchStores } from "../api/Store";
+import { fetchStores, fetchStates } from "../api/Store";
 import StoreTable from "../components/StoreTable";
 import AddStore from "../components/AddStore";
 import User from "../components/User";
@@ -21,6 +21,19 @@ function HomePage() {
         }
       })
       .catch((error) => console.log(error));
+
+    fetchStates()
+      .then((res) => {
+        const j = res.data;
+        if (j.error === 0) {
+          dispatch({ type: actions.SET_STATES, states: j.states });
+        } else {
+          console.log(j.msg);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.refresh]);
 

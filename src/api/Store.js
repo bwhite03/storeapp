@@ -59,13 +59,31 @@ export async function storeDelete(id) {
   return json;
 }
 
-export async function test() {
+export async function storeUpdate(store) {
   const json = await axios({
     method: "POST",
     headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    url: url + "stores/update",
+    data: qs.stringify({
+      store,
+      apikey,
+    }),
+  });
+  return json;
+}
+
+export async function fetchStates() {
+  const json = await axios({
+    method: "GET",
+    headers: {
       "Content-Type": "application/json",
     },
-    url: url + "stores/test",
+    url: url + "stores/states",
+    params: {
+      apikey,
+    },
   });
   return json;
 }
