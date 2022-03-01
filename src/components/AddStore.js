@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TextInput from "./TextInput";
 import "./addstore.css";
 import { toast } from "react-toastify";
+import SelectField from "./SelectField";
 
 function AddStore() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function AddStore() {
     if (!state.version) _errors.version = "Version is required";
     if (!state.taxRate) _errors.taxRate = "Tax rate is required";
     if (!state.groupId) _errors.groupId = "Group id is required";
+    if (state.state !== 0) _errors.state = "State is required";
     setErrors(_errors);
     return Object.keys(_errors).length === 0;
   };
@@ -117,15 +119,17 @@ function AddStore() {
         onChange={handleChange}
         error={errors.version}
       />
-      <label>State</label>
-      <select name="state" value={state.state} onChange={handleChange}>
-        <option value="" hidden disabled></option>
-        {appState.states.map((store, i) => (
-          <option key={i} value={store.abr}>
-            {store.name}
-          </option>
-        ))}
-      </select>
+      <SelectField
+        id="state"
+        name="state"
+        label="state"
+        onChange={handleChange}
+        valueField="abr"
+        displayField="name"
+        data={appState.states}
+        emptyMessage="Select a state"
+        error={errors.state}
+      />
       <TextInput
         type="text"
         label="Tax Rate"

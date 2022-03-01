@@ -9,3 +9,5 @@ export const END_EDITING = "END_EDITING";
 export const EDITING_CHANGE = "EDITING_CHANGE";
 export const SET_STATES = "SET_STATES";
 export const FILTER_CHANGE = "FILTER_CHANGE";
+export const SET_USERS = "SET_USERS";
+export const SET_SORT_USERS = "SET_SORT_USERS";

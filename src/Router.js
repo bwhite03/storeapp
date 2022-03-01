@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import UserPage from "./pages/UserPage";
 import Nav from "./components/Nav";
 import TabDemo from "./components/TabDemo";
 import { ToastContainer } from "react-toastify";
@@ -14,6 +15,7 @@ function Router() {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/tab" element={<TabDemo />} />
+          <Route exact path="/users" element={<UserPage />} />
         </Routes>
         <ToastContainer autoClose={3000} theme="colored" />
       </BrowserRouter>

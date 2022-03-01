@@ -85,14 +85,18 @@ function StoreTable({ stores }) {
           console.log(error);
         });
 
-      return;
+      dispatch({
+        type: actions.END_EDITING,
+        isEditing: false,
+        editingRecord: {},
+      });
+    } else {
+      dispatch({
+        type: actions.START_EDITING,
+        isEditing: true,
+        editingRecord: store,
+      });
     }
-
-    dispatch({
-      type: actions.START_EDITING,
-      isEditing: true,
-      editingRecord: store,
-    });
   };
 
   const handleOnChange = (e) => {

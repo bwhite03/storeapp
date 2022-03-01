@@ -5,7 +5,7 @@ function Tab(props) {
   if (props.label === props.activeTab) {
     className += " tablist-active";
   } else {
-    className += " tablist-disabled";
+    // className += " tablist-disabled";
   }
 
   return (
