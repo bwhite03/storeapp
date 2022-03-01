@@ -1,13 +1,17 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { addStore } from "../api/Store";
 import * as actions from "../store/actions/storeActions";
 import { useDispatch, useSelector } from "react-redux";
+import TextInput from "./TextInput";
+import "./addstore.css";
+import { toast } from "react-toastify";
 
 function AddStore() {
   const dispatch = useDispatch();
   const state = useSelector((api) => api.newStoreReducer);
   const appState = useSelector((api) => api.storeReducer);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     console.log("Refresh");
@@ -21,8 +25,21 @@ function AddStore() {
     });
   };
 
+  const formIsValid = () => {
+    const _errors = {};
+    if (!state.storeNumber) _errors.storeNumber = "Store number is required";
+    if (!state.storeName) _errors.storeName = "Store name is required";
+    if (!state.termCount) _errors.termCount = "Term count is required";
+    if (!state.version) _errors.version = "Version is required";
+    if (!state.taxRate) _errors.taxRate = "Tax rate is required";
+    if (!state.groupId) _errors.groupId = "Group id is required";
+    setErrors(_errors);
+    return Object.keys(_errors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formIsValid()) return;
     addStore(
       state.storeNumber,
       state.storeName,
@@ -35,44 +52,70 @@ function AddStore() {
       .then((res) => {
         const j = res.data;
         if (j.error === 0) {
+          toast.success("Successful");
           dispatch({ type: actions.REFRESH });
         } else {
+          toast.warn(j.msg);
           dispatch({ type: actions.REFRESH });
           console.log(j.msg);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+
+  const warn = () => {
+    toast.warn("test");
+  };
+
+  const error = () => {
+    toast.error("test");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Store Number</label>
-      <input
-        name="storeNumber"
-        type="number"
-        value={state.storeNumber}
-        onChange={handleChange}
-      />
-      {/* <label>Store Name</label>
-      <input
-        name="storeName"
+      <button onClick={warn}>Warn</button>
+      <button onClick={error}>Error</button>
+      <TextInput
         type="text"
+        label="Store Number"
+        id="storeNumber"
+        name="storeNumber"
+        value={state.storeNumber}
+        placeholder="Store Number"
+        onChange={handleChange}
+        error={errors.storeNumber}
+      />
+      <TextInput
+        type="text"
+        label="Store Name"
+        id="storeName"
+        name="storeName"
         value={state.storeName}
+        placeholder="Store Name"
         onChange={handleChange}
+        error={errors.storeName}
       />
-      <label>Term Count</label>
-      <input
-        name="termCount"
-        type="number"
+      <TextInput
+        type="text"
+        label="Term Count"
+        id="termCount"
+        name="storeName"
         value={state.termCount}
+        placeholder="Term Count"
         onChange={handleChange}
+        error={errors.termCount}
       />
-      <label>Version</label>
-      <input
+      <TextInput
+        type="text"
+        label="Version"
+        id="version"
         name="version"
-        type="number"
         value={state.version}
+        placeholder="Version"
         onChange={handleChange}
+        error={errors.version}
       />
       <label>State</label>
       <select name="state" value={state.state} onChange={handleChange}>
@@ -83,20 +126,26 @@ function AddStore() {
           </option>
         ))}
       </select>
-      <label>Tax Rate</label>
-      <input
+      <TextInput
+        type="text"
+        label="Tax Rate"
+        id="taxRate"
         name="taxRate"
-        type="number"
         value={state.taxRate}
+        placeholder="Tax Rate"
         onChange={handleChange}
+        error={errors.taxRate}
       />
-      <label>Group Id</label>
-      <input
+      <TextInput
+        type="text"
+        label="Group Id"
+        id="groupId"
         name="groupId"
-        type="number"
         value={state.groupId}
+        placeholder="Group Id"
         onChange={handleChange}
-      /> */}
+        error={errors.groupId}
+      />
       <button className="submit-btn" type="submit">
         Submit
       </button>

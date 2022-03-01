@@ -1,0 +1,23 @@
+.tablists {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+}
+
+.tablist-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.tablist-active {
+  background-color: #882cc2;
+  border: solid #ccc;
+  border-width: 1px 1px 0 1px;
+  color: white;
+}
+
+.tablist-disabled {
+  display: none;
+}

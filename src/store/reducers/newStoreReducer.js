@@ -17,7 +17,7 @@ const newStoreReducer = (state = storeDefaultState, action) => {
       const { name, value } = action;
       return { ...state, [name]: value };
     case actions.REFRESH:
-      return { storeDefaultState };
+      return storeDefaultState;
     default:
       return state;
   }

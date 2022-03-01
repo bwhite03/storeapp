@@ -167,8 +167,10 @@ function StoreTable({ stores }) {
                       >
                         {state.states.length > 0 ? (
                           <React.Fragment>
-                            {state.states.map((state) => (
-                              <option value={state.abr}>{state.name}</option>
+                            {state.states.map((state, i) => (
+                              <option key={i} value={state.abr}>
+                                {state.name}
+                              </option>
                             ))}
                           </React.Fragment>
                         ) : null}
